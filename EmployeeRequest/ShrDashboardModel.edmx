@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShrDashboardContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Access">
+          <Key>
+            <PropertyRef Name="AccessLevelId" />
+            <PropertyRef Name="AccessId" />
+          </Key>
+          <Property Name="AccessLevelId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccessId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccessLevels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PersistOnDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntryAndExitLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="PersistOnDate" Type="datetime" Nullable="false" />
+          <Property Name="Long" Type="nvarchar" MaxLength="100" />
+          <Property Name="Lat" Type="nvarchar" MaxLength="100" />
+          <Property Name="DeviceType" Type="nchar" MaxLength="1" />
+          <Property Name="BrowserType" Type="nchar" MaxLength="1" />
+          <Property Name="OsType" Type="nchar" MaxLength="1" />
+          <Property Name="Ip" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceId" Type="nvarchar" MaxLength="500" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ValidDate" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ShareholderWatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Desc1" Type="nvarchar(max)" />
+          <Property Name="WatchList" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="IsPublic" Type="bit" Nullable="false" />
+          <Property Name="PersistOnDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Family" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PersistOnDate" Type="datetime" Nullable="false" />
+          <Property Name="AccessLevelId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MobileNo" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Access_AccessLevels">
+          <End Role="AccessLevels" Type="Self.AccessLevels" Multiplicity="1" />
+          <End Role="Access" Type="Self.Access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessLevels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Access">
+              <PropertyRef Name="AccessLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntryAndExitLog_USERS">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="EntryAndExitLog" Type="Self.EntryAndExitLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntryAndExitLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShareholderWatch_USERS">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="ShareholderWatch" Type="Self.ShareholderWatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShareholderWatch">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_AccessLevels">
+          <End Role="AccessLevels" Type="Self.AccessLevels" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessLevels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="AccessLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShrDashboardContextModelStoreContainer">
+          <EntitySet Name="Access" EntityType="Self.Access" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntryAndExitLog" EntityType="Self.EntryAndExitLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lock" EntityType="Self.Lock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShareholderWatch" EntityType="Self.ShareholderWatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Access_AccessLevels" Association="Self.FK_Access_AccessLevels">
+            <End Role="AccessLevels" EntitySet="AccessLevels" />
+            <End Role="Access" EntitySet="Access" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntryAndExitLog_USERS" Association="Self.FK_EntryAndExitLog_USERS">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="EntryAndExitLog" EntitySet="EntryAndExitLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShareholderWatch_USERS" Association="Self.FK_ShareholderWatch_USERS">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="ShareholderWatch" EntitySet="ShareholderWatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERS_AccessLevels" Association="Self.FK_USERS_AccessLevels">
+            <End Role="AccessLevels" EntitySet="AccessLevels" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShrDashboardContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Family" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersistOnDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AccessLevelId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AccessLevel" Relationship="ShrDashboardContextModel.FK_USERS_AccessLevels" FromRole="USER" ToRole="AccessLevel" />
+          <Property Name="MobileNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="EntryAndExitLogs" Relationship="ShrDashboardContextModel.FK_EntryAndExitLog_USERS" FromRole="USER" ToRole="EntryAndExitLog" />
+          <NavigationProperty Name="ShareholderWatches" Relationship="ShrDashboardContextModel.FK_ShareholderWatch_USERS" FromRole="USER" ToRole="ShareholderWatch" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="USERS" EntityType="Self.USER" />
+          <EntitySet Name="AccessLevels" EntityType="ShrDashboardContextModel.AccessLevel" />
+          <AssociationSet Name="FK_USERS_AccessLevels" Association="ShrDashboardContextModel.FK_USERS_AccessLevels">
+            <End Role="AccessLevel" EntitySet="AccessLevels" />
+            <End Role="USER" EntitySet="USERS" />
+          </AssociationSet>
+          <EntitySet Name="Accesses" EntityType="ShrDashboardContextModel.Access" />
+          <AssociationSet Name="FK_Access_AccessLevels" Association="ShrDashboardContextModel.FK_Access_AccessLevels">
+            <End Role="AccessLevel" EntitySet="AccessLevels" />
+            <End Role="Access" EntitySet="Accesses" />
+          </AssociationSet>
+          <EntitySet Name="Locks" EntityType="ShrDashboardContextModel.Lock" />
+          <EntitySet Name="EntryAndExitLogs" EntityType="ShrDashboardContextModel.EntryAndExitLog" />
+          <AssociationSet Name="FK_EntryAndExitLog_USERS" Association="ShrDashboardContextModel.FK_EntryAndExitLog_USERS">
+            <End Role="USER" EntitySet="USERS" />
+            <End Role="EntryAndExitLog" EntitySet="EntryAndExitLogs" />
+          </AssociationSet>
+          <EntitySet Name="ShareholderWatches" EntityType="ShrDashboardContextModel.ShareholderWatch" />
+          <AssociationSet Name="FK_ShareholderWatch_USERS" Association="ShrDashboardContextModel.FK_ShareholderWatch_USERS">
+            <End Role="USER" EntitySet="USERS" />
+            <End Role="ShareholderWatch" EntitySet="ShareholderWatches" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccessLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PersistOnDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="USERS" Relationship="ShrDashboardContextModel.FK_USERS_AccessLevels" FromRole="AccessLevel" ToRole="USER" />
+          <NavigationProperty Name="Accesses" Relationship="ShrDashboardContextModel.FK_Access_AccessLevels" FromRole="AccessLevel" ToRole="Access" />
+        </EntityType>
+        <Association Name="FK_USERS_AccessLevels">
+          <End Type="ShrDashboardContextModel.AccessLevel" Role="AccessLevel" Multiplicity="0..1" />
+          <End Type="ShrDashboardContextModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="AccessLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Access">
+          <Key>
+            <PropertyRef Name="AccessLevelId" />
+            <PropertyRef Name="AccessId" />
+          </Key>
+          <Property Name="AccessLevelId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AccessId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="AccessLevel" Relationship="ShrDashboardContextModel.FK_Access_AccessLevels" FromRole="Access" ToRole="AccessLevel" />
+        </EntityType>
+        <Association Name="FK_Access_AccessLevels">
+          <End Type="ShrDashboardContextModel.AccessLevel" Role="AccessLevel" Multiplicity="1" />
+          <End Type="ShrDashboardContextModel.Access" Role="Access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Access">
+              <PropertyRef Name="AccessLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Lock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceId" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValidDate" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EntryAndExitLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="PersistOnDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Long" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceType" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="BrowserType" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="OsType" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Ip" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USER" Relationship="ShrDashboardContextModel.FK_EntryAndExitLog_USERS" FromRole="EntryAndExitLog" ToRole="USER" />
+        </EntityType>
+        <Association Name="FK_EntryAndExitLog_USERS">
+          <End Type="ShrDashboardContextModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="ShrDashboardContextModel.EntryAndExitLog" Role="EntryAndExitLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntryAndExitLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ShareholderWatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Desc1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WatchList" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="IsPublic" Type="Boolean" Nullable="false" />
+          <Property Name="PersistOnDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="USER" Relationship="ShrDashboardContextModel.FK_ShareholderWatch_USERS" FromRole="ShareholderWatch" ToRole="USER" />
+        </EntityType>
+        <Association Name="FK_ShareholderWatch_USERS">
+          <End Type="ShrDashboardContextModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="ShrDashboardContextModel.ShareholderWatch" Role="ShareholderWatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShareholderWatch">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShrDashboardContextModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="ShrDashboardContextModel.USER">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="AccessLevelId" ColumnName="AccessLevelId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="PersistOnDate" ColumnName="PersistOnDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccessLevels">
+            <EntityTypeMapping TypeName="ShrDashboardContextModel.AccessLevel">
+              <MappingFragment StoreEntitySet="AccessLevels">
+                <ScalarProperty Name="PersistOnDate" ColumnName="PersistOnDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accesses">
+            <EntityTypeMapping TypeName="ShrDashboardContextModel.Access">
+              <MappingFragment StoreEntitySet="Access">
+                <ScalarProperty Name="AccessId" ColumnName="AccessId" />
+                <ScalarProperty Name="AccessLevelId" ColumnName="AccessLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locks">
+            <EntityTypeMapping TypeName="ShrDashboardContextModel.Lock">
+              <MappingFragment StoreEntitySet="Lock">
+                <ScalarProperty Name="ValidDate" ColumnName="ValidDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntryAndExitLogs">
+            <EntityTypeMapping TypeName="ShrDashboardContextModel.EntryAndExitLog">
+              <MappingFragment StoreEntitySet="EntryAndExitLog">
+                <ScalarProperty Name="Ip" ColumnName="Ip" />
+                <ScalarProperty Name="OsType" ColumnName="OsType" />
+                <ScalarProperty Name="BrowserType" ColumnName="BrowserType" />
+                <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="PersistOnDate" ColumnName="PersistOnDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShareholderWatches">
+            <EntityTypeMapping TypeName="ShrDashboardContextModel.ShareholderWatch">
+              <MappingFragment StoreEntitySet="ShareholderWatch">
+                <ScalarProperty Name="PersistOnDate" ColumnName="PersistOnDate" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="WatchList" ColumnName="WatchList" />
+                <ScalarProperty Name="Desc1" ColumnName="Desc1" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

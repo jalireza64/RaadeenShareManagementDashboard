@@ -1,0 +1,39 @@
+﻿{
+  "Shareholder": [
+    {
+      "shrh_code": "100001",
+      "name": "مونا",
+      "surname": "آیت الهی",
+      "father": "محمد صادق",
+      "cert_no": "1234",
+      "natcode": "0042346765",
+      "bbs_code": "آیت12345",
+      "address": "تهران - عباس آباد - اندیشه",
+      "mobile": "09124972318",
+      "share": 50,
+      "postal_code": "0123456789",
+      "share_type": "عادی با نام",
+      "spri_qunt": 100,
+      "spri_amnt": 100000,
+      "credit_amnt": 60000,
+      "pay_amnt": 40000
+    }
+  ],
+  "Company": [
+    {
+      "comp_address": "تهران - شریعتی - روبروی سینما سروش - پلاک 218 - واحد 24",
+      "bank_acc_desc": "حساب شماره 3436637 به نام شرکت رادین انفورماتیک پارس نزد بانک ملت شعبه ملاصدرا",
+      "company_id": 1,
+      "company_name": "رادین انفورماتیک پارس",
+      "end_date": "1399/03/01",
+      "national_code": "1400987623",
+      "comp_postal_code": "1563835197",
+      "reg_no": "550081",
+      "tel": "77654825",
+      "cap_percent": "100%",
+      "pre_cap_amnt": "1000000000",
+      "cap_amnt": "2000000000",
+      "share_amnt": "1000"
+    }
+  ]
+}

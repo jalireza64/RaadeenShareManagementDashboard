@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a699e10b2094aa5b5c8e48fd208120a" Name="Diagram1" ZoomLevel="37">
+        <EntityTypeShape EntityType="SeasonShareModel.FIN_YEAR" Width="1.5" PointX="5.375" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SeasonShareModel.SHAREHOLDER" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SeasonShareModel.SHR_TRANSACTION" Width="1.5" PointX="3" PointY="4.75" />
+        <AssociationConnector Association="SeasonShareModel.FK_SHR_TRAN_R_599_SHAREHOL" />
+        <AssociationConnector Association="SeasonShareModel.FK_SHR_TRAN_R_600_SHAREHOL" />
+        <EntityTypeShape EntityType="SeasonShareModel.v_fb_shr_shrh_info" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SeasonShareModel.v_fb_shr_shrh_sum" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SeasonShareModel.SHR_FIN_INFO" Width="1.5" PointX="7.625" PointY="5.625" />
+        <AssociationConnector Association="SeasonShareModel.FK_SHR_FIN__R_554_FIN_YEAR" />
+        <AssociationConnector Association="SeasonShareModel.FK_SHR_FIN__R_555_SHAREHOL" />
+        <EntityTypeShape EntityType="SeasonShareModel.CITY" Width="1.5" PointX="0.75" PointY="16" />
+        <AssociationConnector Association="SeasonShareModel.FK_SHAREHOL_R_382_CITY" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
